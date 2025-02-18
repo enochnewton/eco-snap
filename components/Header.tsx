@@ -22,8 +22,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Badge } from "./ui/badge";
 
-import { use, useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   createUser,
   getUnreadNotifications,
@@ -41,18 +40,15 @@ import {
 
 interface HeaderProps {
   onMenuClick: () => void;
-  totalEarnings: number;
 }
 
-export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
-  const [provider, setProvider] = useState<any>(null);
+export default function Header({ onMenuClick }: HeaderProps) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<any>(null);
   const [notification, setNotification] = useState<Notification[]>([]);
   const [balance, setBalance] = useState(0);
 
-  const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   // Initialize Firebase Authentication
@@ -60,7 +56,6 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
     const init = async () => {
       auth.onAuthStateChanged(async (user) => {
         if (user) {
-          setProvider(auth); // Firebase auth as provider
           setLoggedIn(true);
           setUserInfo(user);
           console.log("User info:", user);
@@ -78,7 +73,6 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             }
           }
         } else {
-          setProvider(null);
           setLoggedIn(false);
           setUserInfo(null);
           localStorage.removeItem("userEmail");
@@ -290,9 +284,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
                 <DropdownMenuItem onClick={getUserInfo}>
                   {userInfo ? userInfo.name : "Profile"}
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href='/settings'>Settings</Link>
-                </DropdownMenuItem>
+
                 <DropdownMenuItem onClick={logout}>
                   Logout
                   <LogOut className='h-4 w-4 ml-1' />

@@ -5,8 +5,6 @@ import {
   MapPin,
   CheckCircle,
   Clock,
-  ArrowRight,
-  Camera,
   Upload,
   Loader,
   Calendar,
@@ -97,7 +95,6 @@ export default function CollectPage() {
     quantityMatch: boolean;
     confidence: number;
   } | null>(null);
-  const [reward, setReward] = useState<number | null>(null);
 
   const handleStatusChange = async (
     taskId: number,
@@ -208,7 +205,6 @@ export default function CollectPage() {
           // Save the collected waste
           await saveCollectedWaste(selectedTask.id, user.id, parsedResult);
 
-          setReward(earnedReward);
           toast.success(
             `Verification successful! You earned ${earnedReward} tokens!`,
             {

@@ -1,13 +1,5 @@
 "use client";
-import {
-  ArrowRight,
-  Leaf,
-  Recycle,
-  Users,
-  Coins,
-  MapPin,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowRight, Leaf, Recycle, Users, Coins, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
