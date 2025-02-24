@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import Header from "@/components/Header";
@@ -28,7 +27,11 @@ export default function RootLayout({
 
           if (user) {
             const availableRewards = await getAvailableRewards(user.id);
-            setTotalEarnings(availableRewards);
+            const total = availableRewards.reduce(
+              (sum, reward) => sum + reward.cost,
+              0
+            );
+            setTotalEarnings(total);
           }
         }
       } catch (error) {

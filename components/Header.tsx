@@ -1,4 +1,3 @@
-// @ts-check
 "use client";
 
 import Link from "next/link";
@@ -40,6 +39,7 @@ import {
 
 interface HeaderProps {
   onMenuClick: () => void;
+  totalEarnings: number;
 }
 
 export default function Header({ onMenuClick }: HeaderProps) {
@@ -87,7 +87,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
   // Fetch notifications
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (userInfo?.email) {
+      if (userInfo && userInfo.email) {
         const user = await getUserByEmail(userInfo.email);
         if (user) {
           const unreadNotifications = await getUnreadNotifications(user.id);
@@ -134,7 +134,6 @@ export default function Header({ onMenuClick }: HeaderProps) {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      setProvider(auth);
       setLoggedIn(true);
       setUserInfo(user);
 
@@ -155,7 +154,6 @@ export default function Header({ onMenuClick }: HeaderProps) {
   const logout = async () => {
     try {
       await signOut(auth);
-      setProvider(null);
       setLoggedIn(false);
       setUserInfo(null);
       localStorage.removeItem("userEmail");
