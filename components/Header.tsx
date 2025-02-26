@@ -103,7 +103,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
         const user = await getUserByEmail(userInfo.email);
         if (user) {
           const unreadNotifications = await getUnreadNotifications(user.id);
-          setNotification(unreadNotifications);
+          setNotification(unreadNotifications ?? []);
         }
       }
     };

@@ -186,9 +186,8 @@ export async function getOrCreateReward(userId: number) {
         .values({
           userId,
           name: "Default Reward",
-          collectionInfo: "Default Collection Info",
+          description: "Default Collection Info",
           points: 0,
-          level: 1,
           isAvailable: true,
         })
         .returning()
@@ -424,7 +423,6 @@ export async function getAllRewards() {
         id: Rewards.id,
         userId: Rewards.userId,
         points: Rewards.points,
-        level: Rewards.level,
         createdAt: Rewards.createdAt,
         userName: Users.name,
       })
