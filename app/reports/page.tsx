@@ -13,6 +13,7 @@ import {
 } from "@/utils/db/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -322,10 +323,12 @@ export default function ReportPage() {
 
         {preview && (
           <div className='mt-4 mb-8'>
-            <img
+            <Image
               src={preview}
               alt='Waste preview'
               className='max-w-full h-auto rounded-xl shadow-md'
+              width={400}
+              height={400}
             />
           </div>
         )}

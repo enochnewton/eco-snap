@@ -42,10 +42,16 @@ interface HeaderProps {
   totalEarnings: number;
 }
 interface User {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+  // Other Firebase-specific fields...
+}
+interface Notification {
   id: number;
-  name: string;
-  email: string;
-  imageUrl?: string; // Optional field
+  type: string;
+  message: string;
 }
 
 export default function Header({ onMenuClick }: HeaderProps) {
@@ -233,7 +239,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end' className='w-64'>
               {notification.length > 0 ? (
-                notification.map((notification: any) => (
+                notification.map((notification: Notification) => (
                   <DropdownMenuItem
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification.id)}
@@ -286,7 +292,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-64'>
                 <DropdownMenuItem onClick={getUserInfo}>
-                  {userInfo ? userInfo.name : "Profile"}
+                  {userInfo ? userInfo.displayName : "Profile"}
                 </DropdownMenuItem>
 
                 <DropdownMenuItem onClick={logout}>
