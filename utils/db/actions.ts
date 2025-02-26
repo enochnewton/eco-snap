@@ -189,6 +189,7 @@ export async function getOrCreateReward(userId: number) {
           description: "Default Collection Info",
           points: 0,
           isAvailable: true,
+          collectionInfo: "Default Collection Info",
         })
         .returning()
         .execute();
