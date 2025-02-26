@@ -18,6 +18,13 @@ const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const libraries: Libraries = ["places"];
+interface Report {
+  id: number;
+  location: string;
+  wasteType: string;
+  amount: number;
+  createdAt: string | Date;
+}
 
 export default function ReportPage() {
   const [user, setUser] = useState<{

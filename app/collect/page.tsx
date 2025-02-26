@@ -22,6 +22,7 @@ import {
   getUserByEmail,
 } from "@/utils/db/actions";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import Image from "next/image";
 
 // Make sure to set your Gemini API key in your environment variables
 const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -409,10 +410,12 @@ export default function CollectPage() {
               </div>
             </div>
             {verificationImage && (
-              <img
+              <Image
                 src={verificationImage}
                 alt='Verification'
                 className='mb-4 rounded-md w-full'
+                width={500}
+                height={300}
               />
             )}
             <Button
