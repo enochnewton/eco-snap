@@ -19,11 +19,16 @@ const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const libraries: Libraries = ["places"];
 interface Report {
-  id: number;
+  id: number; // Since `id` is `serial`, it should be a number.
+  userId: number; // Foreign key reference to Users.
   location: string;
   wasteType: string;
-  amount: number;
-  createdAt: string | Date;
+  amount: string; // Stored as `varchar`, so it's a string.
+  imageUrl: string;
+  verificationResult: unknown; // JSON data, so we use `unknown` (or a specific type if structured).
+  status: string; // Default is "pending".
+  createdAt: Date; // Stored as `timestamp`, so we use `Date`.
+  collectorId?: number | null; // Can be null, so it's optional.
 }
 
 export default function ReportPage() {
@@ -199,24 +204,39 @@ export default function ReportPage() {
 
     setIsSubmitting(true);
     try {
-      const report = (await createReport(
+      const report = await createReport(
         user.id,
         newReport.location,
         newReport.type,
         newReport.amount,
         preview || undefined,
         verificationResult ? JSON.stringify(verificationResult) : undefined
-      )) as any;
+      );
 
-      const formattedReport = {
+      if (!report) {
+        throw new Error("Report creation failed. Received null response.");
+      }
+
+      const formattedReport: Report = {
         id: report.id,
         location: report.location,
         wasteType: report.wasteType,
         amount: report.amount,
-        createdAt: report.createdAt.toISOString().split("T")[0],
+        createdAt: new Date(report.createdAt),
+        userId: report.userId,
+        imageUrl: report.imageUrl,
+        verificationResult: report.verificationResult,
+        status: report.status,
+        collectorId: report.collectorId,
       };
 
-      setReports([formattedReport, ...reports]);
+      setReports([
+        {
+          ...formattedReport,
+          createdAt: formattedReport.createdAt.toISOString().split("T")[0],
+        },
+        ...reports,
+      ]);
       setNewReport({ location: "", type: "", amount: "" });
       setFile(null);
       setPreview(null);

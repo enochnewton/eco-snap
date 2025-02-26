@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import { useState, useEffect } from "react";
 import {
@@ -62,7 +61,7 @@ export default function RewardsPage() {
             const fetchedRewards = await getAvailableRewards(fetchedUser.id);
             setRewards(fetchedRewards.filter((r) => r.cost > 0)); // Filter out rewards with 0 points
             const calculatedBalance = fetchedTransactions?.reduce(
-              (acc: any, transaction) => {
+              (acc: number, transaction) => {
                 return transaction.type.startsWith("earned")
                   ? acc + transaction.amount
                   : acc - transaction.amount;

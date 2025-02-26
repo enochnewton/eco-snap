@@ -41,11 +41,17 @@ interface HeaderProps {
   onMenuClick: () => void;
   totalEarnings: number;
 }
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  imageUrl?: string; // Optional field
+}
 
 export default function Header({ onMenuClick }: HeaderProps) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<User | null>(null);
   const [notification, setNotification] = useState<Notification[]>([]);
   const [balance, setBalance] = useState(0);
 
