@@ -83,35 +83,37 @@ export default function Home() {
   };
 
   return (
-    <div className={`container mx-auto px-4 py-16 ${poppins.className}`}>
-      <section className='text-center mb-20'>
+    <div
+      className={`container mx-auto px-2 sm:px-4 py-8 sm:py-16 ${poppins.className}`}
+    >
+      <section className='text-center mb-12 sm:mb-20'>
         <AnimatedGlobe />
-        <h1 className='text-6xl font-bold mb-6 text-gray-800 tracking-tight'>
-          Eco snap <span className='text-green-600'>Waste Management</span>
+        <h1 className='text-4xl sm:text-6xl font-bold mb-4 sm:mb-6 text-gray-800 tracking-tight'>
+          Eco Snap <span className='text-green-600'>Waste Management</span>
         </h1>
-        <p className='text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8'>
+        <p className='text-lg sm:text-xl text-gray-600 max-w-xl sm:max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8'>
           Join our community in making waste management more efficient and
           rewarding!
         </p>
         {!loggedIn ? (
           <Button
             onClick={login}
-            className='bg-green-600 hover:bg-green-700 text-white text-lg py-6 px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105'
+            className='bg-green-600 hover:bg-green-700 text-white text-base sm:text-lg py-4 sm:py-6 px-6 sm:px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105'
           >
             Get Started
-            <ArrowRight className='ml-2 h-5 w-5' />
+            <ArrowRight className='ml-2 h-4 w-4 sm:h-5 sm:w-5' />
           </Button>
         ) : (
           <Link href='/reports'>
-            <Button className='bg-green-600 hover:bg-green-700 text-white text-lg py-6 px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105'>
+            <Button className='bg-green-600 hover:bg-green-700 text-white text-base sm:text-lg py-4 sm:py-6 px-6 sm:px-10 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105'>
               Report Waste
-              <ArrowRight className='ml-2 h-5 w-5' />
+              <ArrowRight className='ml-2 h-4 w-4 sm:h-5 sm:w-5' />
             </Button>
           </Link>
         )}
       </section>
 
-      <section className='grid md:grid-cols-3 gap-10 mb-20'>
+      <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 mb-12 sm:mb-20'>
         <FeatureCard
           icon={Leaf}
           title='Eco-Friendly'
@@ -129,11 +131,11 @@ export default function Home() {
         />
       </section>
 
-      <section className='bg-white p-10 rounded-3xl shadow-lg mb-20'>
-        <h2 className='text-4xl font-bold mb-12 text-center text-gray-800'>
+      <section className='bg-white p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-lg mb-12 sm:mb-20'>
+        <h2 className='text-3xl sm:text-4xl font-bold mb-8 sm:mb-12 text-center text-gray-800'>
           Our Impact
         </h2>
-        <div className='grid md:grid-cols-4 gap-6'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6'>
           <ImpactCard
             title='Waste Collected'
             value={`${impactData.wasteCollected} kg`}
