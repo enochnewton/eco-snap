@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
-import { MapPin, Upload, CheckCircle, Loader } from "lucide-react";
+import { Upload, CheckCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
@@ -281,42 +281,43 @@ export default function ReportPage() {
   }, [router]);
 
   return (
-    <div className='p-1 sm:p-8 max-w-4xl mx-auto'>
-      <h1 className='text-xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800'>
-        Report Waste
+    <div className='p-4 sm:p-6 md:p-8 max-w-4xl mx-auto'>
+      <h1 className='text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800'>
+        Report waste
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className='w-full bg-white px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-lg mb-8 sm:mb-12 overflow-hidden'
+        className='bg-white p-4 sm:p-8 rounded-2xl shadow-lg mb-8 sm:mb-12'
       >
-        <div className='mb-4 sm:mb-8'>
+        <div className='mb-6 sm:mb-8'>
           <label
             htmlFor='waste-image'
-            className='block text-sm sm:text-lg font-medium text-gray-700 mb-2'
+            className='block text-base sm:text-lg font-medium text-gray-700 mb-2'
           >
             Upload Waste Image
           </label>
-          <div className='mt-1 flex flex-col items-center sm:flex-row sm:justify-center px-3 sm:px-6 py-4 border-2 border-gray-300 border-dashed rounded-xl hover:border-green-500 transition-colors duration-300'>
-            <Upload className='h-8 sm:h-12 w-8 sm:w-12 text-gray-400 mb-2 sm:mb-0' />
-            <div className='text-center sm:text-left'>
-              <label
-                htmlFor='waste-image'
-                className='cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500'
-              >
-                <span>Upload a file</span>
-                <input
-                  id='waste-image'
-                  name='waste-image'
-                  type='file'
-                  className='sr-only'
-                  onChange={handleFileChange}
-                  accept='image/*'
-                />
-              </label>
-              <p className='text-xs text-gray-500'>
-                or drag and drop (PNG, JPG, GIF up to 10MB)
-              </p>
+          <div className='mt-1 flex justify-center px-4 sm:px-6 pt-4 sm:pt-5 pb-4 sm:pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-green-500 transition-colors duration-300'>
+            <div className='space-y-1 text-center'>
+              <Upload className='mx-auto h-10 sm:h-12 w-10 sm:w-12 text-gray-400' />
+              <div className='flex text-sm text-gray-600'>
+                <label
+                  htmlFor='waste-image'
+                  className='relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500'
+                >
+                  <span>Upload a file</span>
+                  <input
+                    id='waste-image'
+                    name='waste-image'
+                    type='file'
+                    className='sr-only'
+                    onChange={handleFileChange}
+                    accept='image/*'
+                  />
+                </label>
+                <p className='pl-1'>or drag and drop</p>
+              </div>
+              <p className='text-xs text-gray-500'>PNG, JPG, GIF up to 10MB</p>
             </div>
           </div>
         </div>
@@ -336,12 +337,12 @@ export default function ReportPage() {
         <Button
           type='button'
           onClick={handleVerify}
-          className='w-full mb-4 sm:mb-8 bg-blue-600 hover:bg-blue-700 text-white py-2 sm:py-3 text-sm sm:text-lg rounded-xl flex items-center justify-center'
+          className='w-full mb-6 sm:mb-8 bg-blue-600 hover:bg-blue-700 text-white py-2 sm:py-3 text-base sm:text-lg rounded-xl transition-colors duration-300 flex items-center justify-center'
           disabled={!file || verificationStatus === "verifying"}
         >
           {verificationStatus === "verifying" ? (
             <>
-              <Loader className='animate-spin -ml-1 mr-3 h-5 w-5 text-white' />
+              <Loader className='animate-spin -ml-1 mr-3 h-5 w-5 text-white' />{" "}
               Verifying...
             </>
           ) : (
@@ -350,20 +351,20 @@ export default function ReportPage() {
         </Button>
 
         {verificationStatus === "success" && verificationResult && (
-          <div className='bg-green-50 border-l-4 border-green-400 p-3 sm:p-6 mb-4 sm:mb-8 rounded-r-xl'>
+          <div className='bg-green-50 border-l-4 border-green-400 p-4 mb-6 sm:mb-8 rounded-r-xl'>
             <div className='flex items-center'>
               <CheckCircle className='h-5 sm:h-6 w-5 sm:w-6 text-green-400 mr-2 sm:mr-3' />
               <div>
-                <h3 className='text-sm sm:text-lg font-medium text-green-800'>
+                <h3 className='text-base sm:text-lg font-medium text-green-800'>
                   Verification Successful
                 </h3>
-                <p className='text-xs sm:text-sm text-green-700'>
+                <p className='text-sm text-green-700'>
                   Waste Type: {verificationResult.wasteType}
                 </p>
-                <p className='text-xs sm:text-sm text-green-700'>
+                <p className='text-sm text-green-700'>
                   Quantity: {verificationResult.quantity}
                 </p>
-                <p className='text-xs sm:text-sm text-green-700'>
+                <p className='text-sm text-green-700'>
                   Confidence: {(verificationResult.confidence * 100).toFixed(2)}
                   %
                 </p>
@@ -372,7 +373,7 @@ export default function ReportPage() {
           </div>
         )}
 
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 mb-4 sm:mb-8'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8'>
           <div>
             <label
               htmlFor='location'
@@ -380,16 +381,34 @@ export default function ReportPage() {
             >
               Location
             </label>
-            <input
-              type='text'
-              id='location'
-              name='location'
-              value={newReport.location}
-              onChange={handleInputChange}
-              required
-              className='w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 transition-all duration-300'
-              placeholder='Enter waste location'
-            />
+            {isLoaded ? (
+              <StandaloneSearchBox
+                onLoad={onLoad}
+                onPlacesChanged={onPlacesChanged}
+              >
+                <input
+                  type='text'
+                  id='location'
+                  name='location'
+                  value={newReport.location}
+                  onChange={handleInputChange}
+                  required
+                  className='w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500'
+                  placeholder='Enter waste location'
+                />
+              </StandaloneSearchBox>
+            ) : (
+              <input
+                type='text'
+                id='location'
+                name='location'
+                value={newReport.location}
+                onChange={handleInputChange}
+                required
+                className='w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500'
+                placeholder='Enter waste location'
+              />
+            )}
           </div>
           <div>
             <label
@@ -405,21 +424,20 @@ export default function ReportPage() {
               value={newReport.type}
               onChange={handleInputChange}
               required
-              readOnly
-              className='w-full px-3 py-2 border border-gray-300 rounded-xl bg-gray-100 focus:ring-2 focus:ring-green-500 transition-all duration-300'
+              className='w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-xl bg-gray-100'
               placeholder='Verified waste type'
+              readOnly
             />
           </div>
         </div>
-
         <Button
           type='submit'
-          className='w-full bg-green-600 hover:bg-green-700 text-white py-2 sm:py-3 text-sm sm:text-lg rounded-xl flex items-center justify-center'
+          className='w-full bg-green-600 hover:bg-green-700 text-white py-2 sm:py-3 text-base sm:text-lg rounded-xl flex items-center justify-center'
           disabled={isSubmitting}
         >
           {isSubmitting ? (
             <>
-              <Loader className='animate-spin -ml-1 mr-3 h-5 w-5 text-white' />
+              <Loader className='animate-spin -ml-1 mr-3 h-5 w-5 text-white' />{" "}
               Submitting...
             </>
           ) : (
@@ -427,51 +445,6 @@ export default function ReportPage() {
           )}
         </Button>
       </form>
-
-      <h2 className='text-xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800'>
-        Recent Reports
-      </h2>
-      <div className='bg-white rounded-2xl shadow-lg overflow-hidden'>
-        <div className='max-h-96 overflow-y-auto'>
-          <table className='w-full text-xs sm:text-base'>
-            <thead className='bg-gray-50 sticky top-0'>
-              <tr>
-                <th className='px-3 sm:px-6 py-2 sm:py-3 text-left font-medium text-gray-500 uppercase'>
-                  Location
-                </th>
-                <th className='px-3 sm:px-6 py-2 sm:py-3 text-left font-medium text-gray-500 uppercase'>
-                  Type
-                </th>
-                <th className='px-3 sm:px-6 py-2 sm:py-3 text-left font-medium text-gray-500 uppercase'>
-                  Amount
-                </th>
-                <th className='px-3 sm:px-6 py-2 sm:py-3 text-left font-medium text-gray-500 uppercase'>
-                  Date
-                </th>
-              </tr>
-            </thead>
-            <tbody className='divide-y divide-gray-200'>
-              {reports.map((report) => (
-                <tr
-                  key={report.id}
-                  className='hover:bg-gray-50 transition-colors duration-200'
-                >
-                  <td className='px-3 sm:px-6 py-2 sm:py-4'>
-                    {report.location}
-                  </td>
-                  <td className='px-3 sm:px-6 py-2 sm:py-4'>
-                    {report.wasteType}
-                  </td>
-                  <td className='px-3 sm:px-6 py-2 sm:py-4'>{report.amount}</td>
-                  <td className='px-3 sm:px-6 py-2 sm:py-4'>
-                    {report.createdAt}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
   );
 }
