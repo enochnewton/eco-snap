@@ -12,9 +12,10 @@ const sidebarItems = [
 
 interface SidebarProps {
   open: boolean;
+  onClose: () => void; // Function to close sidebar
 }
 
-export default function Sidebar({ open }: SidebarProps) {
+export default function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -32,7 +33,8 @@ export default function Sidebar({ open }: SidebarProps) {
                 variant={item.href === pathname ? "secondary" : "ghost"}
                 className={`w-full justify-start flex items-center space-x-4 py-3 px-4 rounded-md transition-colors
               ${pathname === item.href ? "bg-gray-100 text-primary" : ""}
-            `}
+              `}
+                onClick={onClose}
               >
                 <item.icon className='mr-3 h-5 w-5' />
                 <span className='text-base'>{item.label}</span>
