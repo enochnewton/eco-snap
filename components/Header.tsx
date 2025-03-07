@@ -70,7 +70,6 @@ export default function Header({ onMenuClick }: HeaderProps) {
         if (user) {
           setLoggedIn(true);
           setUserInfo(user);
-          console.log("User info:", user);
 
           if (user.email) {
             localStorage.setItem("userEmail", user.email);

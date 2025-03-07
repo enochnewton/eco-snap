@@ -164,19 +164,23 @@ export default function CollectPage() {
         },
       ];
 
-      const prompt = `You are an expert in waste management and recycling. Analyze this image and provide:
-        1. Confirm if the waste type matches: ${selectedTask.wasteType}
-        2. Estimate if the quantity matches: ${selectedTask.amount}
-        3. Your confidence level in this assessment (as a percentage)
-        
-        Respond in JSON format like this:
-        {
-          "wasteTypeMatch": true/false,
-          "quantityMatch": true/false,
-          "confidence": confidence level as a number between 0 and 1
-        }`;
+      const prompt = `You are an expert in waste management and recycling. Analyze this image and provide a JSON response. Follow this exact format:
+
+      {
+        "wasteTypeMatch": true/false,
+        "quantityMatch": true/false,
+        "confidence": confidence level as a number between 0 and 1
+      }
+      
+      Ensure your response is valid JSON with no additional text.
+      
+      Confirm if:
+      1. The waste type matches: ${selectedTask.wasteType}
+      2. The estimated quantity matches: ${selectedTask.amount}
+      3. Confidence level in this assessment (0-1).`;
 
       const result = await model.generateContent([prompt, ...imageParts]);
+      console.log("Verification result:", result);
       const response = await result.response;
       let text = response.text().trim(); // Remove extra spaces/newlines
 
