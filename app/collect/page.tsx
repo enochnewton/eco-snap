@@ -189,6 +189,24 @@ export default function CollectPage() {
 
       try {
         const parsedResult = JSON.parse(text);
+        if (parsedResult.confidence > 0.8) {
+          if (parsedResult.confidence >= 0.9) {
+            if (!parsedResult.wasteTypeMatch && !parsedResult.quantityMatch) {
+              parsedResult.wasteTypeMatch = true;
+              parsedResult.quantityMatch = true;
+            }
+          } else if (parsedResult.confidence > 0.8) {
+            if (parsedResult.wasteTypeMatch || parsedResult.quantityMatch) {
+              if (!parsedResult.wasteTypeMatch) {
+                parsedResult.wasteTypeMatch = true;
+              }
+              if (!parsedResult.quantityMatch) {
+                parsedResult.quantityMatch = true;
+              }
+            }
+          }
+        }
+
         setVerificationResult({
           wasteTypeMatch: parsedResult.wasteTypeMatch,
           quantityMatch: parsedResult.quantityMatch,
@@ -238,9 +256,11 @@ export default function CollectPage() {
     }
   };
 
-  const filteredTasks = tasks.filter((task) =>
-    task.location.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredTasks = tasks
+    .filter((task) =>
+      task.location.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const pageCount = Math.ceil(filteredTasks.length / ITEMS_PER_PAGE);
   const paginatedTasks = filteredTasks.slice(

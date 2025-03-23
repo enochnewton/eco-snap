@@ -177,10 +177,12 @@ function ImpactCard({
       : value;
 
   return (
-    <div className='p-6 rounded-xl bg-gray-50 border border-gray-100 transition-all duration-300 ease-in-out hover:shadow-md'>
-      <Icon className='h-10 w-10 text-green-500 mb-4' />
-      <p className='text-3xl font-bold mb-2 text-gray-800'>{formattedValue}</p>
-      <p className='text-sm text-gray-600'>{title}</p>
+    <div className='p-6 rounded-lg bg-white border border-gray-200 shadow-sm transition-all duration-300 ease-in-out hover:shadow-lg'>
+      <Icon className='h-10 w-10 text-blue-600 mb-4' />
+      <p className='text-3xl font-semibold mb-2 text-gray-900'>
+        {formattedValue}
+      </p>
+      <p className='text-sm text-gray-500'>{title}</p>
     </div>
   );
 }
@@ -195,12 +197,14 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className='bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col items-center text-center'>
-      <div className='bg-green-100 p-4 rounded-full mb-6'>
-        <Icon className='h-8 w-8 text-green-600' />
+    <div className='bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 ease-in-out flex flex-col items-center text-center space-y-6'>
+      <div className='bg-blue-100 p-5 rounded-full'>
+        <Icon className='h-9 w-9 text-blue-600' />
       </div>
-      <h3 className='text-xl font-semibold mb-4 text-gray-800'>{title}</h3>
-      <p className='text-gray-600 leading-relaxed'>{description}</p>
+      <div className='flex flex-col items-center space-y-3'>
+        <h3 className='text-2xl font-bold text-gray-900'>{title}</h3>
+        <p className='text-gray-600 text-base'>{description}</p>
+      </div>
     </div>
   );
 }
