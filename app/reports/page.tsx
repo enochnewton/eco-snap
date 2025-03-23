@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import "../../tailwind.css";
+import imageCompression from "browser-image-compression";
 
 const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -106,16 +107,29 @@ export default function ReportPage() {
   };
 
   // handles the file upload
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
-      setFile(selectedFile);
-      const reader = new FileReader();
 
-      reader.onload = (e) => {
-        setPreview(e.target?.result as string);
+      // Compress the image
+      const options = {
+        maxSizeMB: 1, // Maximum size in MB
+        maxWidthOrHeight: 1024, // Maximum width or height
+        useWebWorker: true, // Use web worker for faster compression
       };
-      reader.readAsDataURL(selectedFile);
+
+      try {
+        const compressedFile = await imageCompression(selectedFile, options);
+        setFile(compressedFile);
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setPreview(e.target?.result as string);
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error("Error compressing image:", error);
+      }
     }
   };
 

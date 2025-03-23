@@ -7,14 +7,14 @@ import {
   Notifications,
   Transactions,
 } from "./schema";
-import { eq, sql, and, desc } from "drizzle-orm";
+import { eq, sql, and, desc } from "drizzle-orm"; // utility functions from drizzle-orm for building SQL queries
 
 export async function createUser(email: string, name: string) {
   try {
     const [user] = await db
       .insert(Users)
       .values({ email, name })
-      .returning()
+      .returning() // return the newly created user
       .execute();
 
     return user;
