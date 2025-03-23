@@ -72,7 +72,7 @@ export default function RewardsPage() {
               0
             );
             console.log("Calculated Balance:", calculatedBalance);
-            setBalance((prev) => Math.abs(calculatedBalance + 200)); // Ensure balance is never negative
+            setBalance(() => Math.abs(calculatedBalance + 200)); // Ensure balance is never negative
 
             // setBalance(Math.max(calculatedBalance, 0));
             console.log("Calculated Balance:", calculatedBalance);
