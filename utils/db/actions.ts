@@ -67,6 +67,7 @@ export async function getUserBalance(userId: number): Promise<number> {
   return Math.max(balance, 0);
 }
 
+// retrieves the last 10 reward transactions for a user
 export async function getRewardTransactions(userId: number) {
   try {
     const transactions = await db
@@ -78,8 +79,8 @@ export async function getRewardTransactions(userId: number) {
         date: Transactions.date,
       })
       .from(Transactions)
-      .where(eq(Transactions.userId, userId))
-      .orderBy(desc(Transactions.date))
+      .where(eq(Transactions.userId, userId)) // filter by user ID
+      .orderBy(desc(Transactions.date)) // sort the records by date in descending order
       .limit(10)
       .execute();
 
@@ -87,7 +88,7 @@ export async function getRewardTransactions(userId: number) {
     const formattedTransactions = transactions.map((transaction: any) => ({
       ...transaction,
       date: transaction.date.toISOString().split("T")[0],
-    }));
+    })); // format date as YYYY-MM-DD
 
     return formattedTransactions;
   } catch (error) {
@@ -180,6 +181,7 @@ export async function getOrCreateReward(userId: number) {
       .from(Rewards)
       .where(eq(Rewards.userId, userId))
       .execute();
+    // createas a default reward
     if (!reward) {
       [reward] = await db
         .insert(Rewards)

@@ -21,17 +21,18 @@ const geminiApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const libraries: Libraries = ["places"];
+// define the structure of the report object
 interface Report {
-  id: number; // Since `id` is `serial`, it should be a number.
-  userId: number; // Foreign key reference to Users.
+  id: number;
+  userId: number;
   location: string;
   wasteType: string;
-  amount: string; // Stored as `varchar`, so it's a string.
+  amount: string;
   imageUrl: string;
-  verificationResult: unknown; // JSON data, so we use `unknown` (or a specific type if structured).
-  status: string; // Default is "pending".
-  createdAt: Date; // Stored as `timestamp`, so we use `Date`.
-  collectorId?: number | null; // Can be null, so it's optional.
+  verificationResult: unknown;
+  status: string;
+  createdAt: Date;
+  collectorId?: number | null;
 }
 
 export default function ReportPage() {

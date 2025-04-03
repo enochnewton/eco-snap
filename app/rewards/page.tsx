@@ -57,7 +57,6 @@ export default function RewardsPage() {
             const fetchedTransactions = await getRewardTransactions(
               fetchedUser.id
             );
-            console.log("Fetched Transactions:", fetchedTransactions);
 
             setTransactions(fetchedTransactions as Transaction[]);
             const fetchedRewards = await getAvailableRewards(fetchedUser.id);
@@ -71,7 +70,6 @@ export default function RewardsPage() {
               },
               0
             );
-            console.log("Calculated Balance:", calculatedBalance);
             setBalance(() => Math.abs(calculatedBalance + 200)); // Ensure balance is never negative
 
             // setBalance(Math.max(calculatedBalance, 0));

@@ -58,14 +58,13 @@ export default function Home() {
         const co2Offset = wasteCollected * 0.5; // Assuming 0.5 kg CO2 offset per kg of waste
 
         setImpactData({
-          wasteCollected: Math.round(wasteCollected * 10) / 10, // Round to 1 decimal place
+          wasteCollected: Math.round(wasteCollected * 10) / 10, 
           reportsSubmitted,
           tokensEarned,
-          co2Offset: Math.round(co2Offset * 10) / 10, // Round to 1 decimal place
+          co2Offset: Math.round(co2Offset * 10) / 10, 
         });
       } catch (error) {
         console.error("Error fetching impact data:", error);
-        // Set default values in case of error
         setImpactData({
           wasteCollected: 0,
           reportsSubmitted: 0,
