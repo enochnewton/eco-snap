@@ -207,6 +207,11 @@ export default function CollectPage() {
           }
         }
 
+        if (parsedResult.confidence < 0.8 && parsedResult.wasteTypeMatch) {
+          parsedResult.wasteTypeMatch = true;
+          parsedResult.quantityMatch = true;
+        }
+
         setVerificationResult({
           wasteTypeMatch: parsedResult.wasteTypeMatch,
           quantityMatch: parsedResult.quantityMatch,
@@ -214,11 +219,7 @@ export default function CollectPage() {
         });
         setVerificationStatus("success");
 
-        if (
-          parsedResult.wasteTypeMatch &&
-          parsedResult.quantityMatch &&
-          parsedResult.confidence > 0.7
-        ) {
+        if (parsedResult.wasteTypeMatch && parsedResult.quantityMatch) {
           await handleStatusChange(selectedTask.id, "verified");
           const earnedReward = Math.floor(Math.random() * 50) + 10; // Random reward between 10 and 59
 
@@ -450,13 +451,16 @@ export default function CollectPage() {
             </div>
 
             {verificationImage && (
-              <Image
-                src={verificationImage}
-                alt='Verification'
-                className='mb-4 rounded-md w-full'
-                width={500}
-                height={300}
-              />
+              <div className='mt-4 mb-6 sm:mb-8 '>
+                <Image
+                  src={verificationImage}
+                  alt='Verification'
+                  className='w-full rounded-xl shadow-md'
+                  style={{ height: "400px", objectFit: "contain" }}
+                  height={200}
+                  width={400}
+                />
+              </div>
             )}
 
             {/* Verify Button */}

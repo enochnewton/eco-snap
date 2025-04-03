@@ -338,13 +338,14 @@ export default function ReportPage() {
         </div>
 
         {preview && (
-          <div className='mt-4 mb-6 sm:mb-8'>
+          <div className='mt-4 mb-6 sm:mb-8 '>
             <Image
               src={preview}
               alt='Waste preview'
-              className='w-full h-auto rounded-xl shadow-md'
+              className='w-full rounded-xl shadow-md'
+              style={{ height: "400px", objectFit: "contain" }}
+              height={200}
               width={400}
-              height={400}
             />
           </div>
         )}
